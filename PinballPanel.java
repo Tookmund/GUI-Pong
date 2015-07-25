@@ -8,7 +8,7 @@
    import java.awt.image.*;
     public class PinballPanel extends JPanel
    {
-      private static final int FRAME = 400;
+      private static final int FRAME = 1000;
       private static final Color BACKGROUND = new Color(204, 204, 204);
    
       private BufferedImage myImage;
@@ -38,7 +38,7 @@
          {
             myBuffer.setColor(BACKGROUND);    //cover the 
             // Doing all these conversions will come back to bite me, I just know it...
-            myBuffer.fillRect((int)ball.getX(),(int)ball.getY(),(int)ball.getDiameter(),(int)ball.getDiameter());   //old ball
+            myBuffer.fillRect(0,0,FRAME,FRAME);   //old ball
             ball.move(FRAME,FRAME);
             ball.draw(myBuffer);     
             repaint();
