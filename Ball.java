@@ -3,10 +3,13 @@ public class Ball extends Polkadot
    {
       private double dx;       // pixels to move each time step() is called.
       private double dy;
+      public double lscore;
+      public double rscore;
+      private Rectangle rb;
     // constructors
        public Ball()         //default constructor
       {
-         super(200, 200, 50, Color.BLACK);
+         super(200, 200, 50, Color.RED);
          dx = Math.random() * 12 - 6;          // to move vertically
          dy = Math.random() * 12 - 6;          // to move sideways
       }
@@ -15,6 +18,7 @@ public class Ball extends Polkadot
          super(x, y, dia, c);
          dx = Math.random()* 12 - 6;
          dy = Math.random() * 12 - 6;
+         rb = new Rectangle((int)getX(),(int)getY(),(int)getDiameter(),(int)getDiameter());
       }
       
      //modifier methods 
@@ -39,24 +43,36 @@ public class Ball extends Polkadot
       
       
      //instance methods
-       public void move(double rightEdge, double bottomEdge)
+       public void move(double rightEdge, double bottomEdge, Rectangle rlp, Rectangle rrp)
       {
-         setX(getX()+ dx);                  // move horizontally
+        setX(getX()+ dx);                  // move horizontally
+        setY(getY()+ dy);                  // move vertically
+        rb.setLocation((int)getX(),(int)getY());
+        if (rb.intersects(rlp))
+        {
+            setX(getX()+rlp.getX());
+            setdx(dx*-1);
+        }
+        if (rb.intersects(rrp))
+        {
+            setX(getX()-rrp.getWidth());
+            setdx(dx*-1);
+        }
                 
          if(getX() >= rightEdge - getRadius())  //hit right edge
          {
             setX(rightEdge - getRadius());
-            setdx(dx * -1); 
+            setdx(dx * -1);
+            lscore++; 
          }
         /* more code goes here  */
-        else if (getX() < 0 + getRadius())
+        else if (getX() < 0 + getRadius()) //hit left edge
         {
             setX(0+getRadius());
             setdx(dx * -1);
-            
+            rscore++;
         }
-        setY(getY()+ dy);                  // move vertically
-        
+
         if(getY() >= bottomEdge - getRadius())
         {
             setY(bottomEdge-getRadius());
@@ -68,6 +84,5 @@ public class Ball extends Polkadot
             setY(0+getRadius());
             setdy(dy*-1);
         }
-
       }
    }

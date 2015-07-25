@@ -1,5 +1,5 @@
 !1157;s
-A
+J
 SAU0PATH+=%<JGRASP_PATHS>%;\012PATH=+%;%<JGRASP_C_PATHS>\012CYGWIN=nodosfilewarning\012-Run\012ADD_EXE_PATH==Y\012
 SCU0PATH+=%<JGRASP_PATHS>%;\012PATH=+%;%<JGRASP_C_PATHS>\012CYGWIN=nodosfilewarning\012-Run\012ADD_EXE_PATH==Y\012
 S+U0PATH+=%<JGRASP_PATHS>%;\012PATH=+%;%<JGRASP_C_PATHS>\012CYGWIN=nodosfilewarning\012-Run\012ADD_EXE_PATH==Y\012
@@ -11,13 +11,15 @@ s#i0
 s#k0
 s#j0
 s#l0
-!72;g
+!89;g
 %\011Ball.java
 %\011main.java
 %\011Polkadot.java
+%\011paddle.java
 %\011PinballPanel.java
-!72;f
+!89;f
 %\011Ball.java
 %\011main.java
 %\011Polkadot.java
+%\011paddle.java
 %\011PinballPanel.java

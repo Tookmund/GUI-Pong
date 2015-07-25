@@ -6,42 +6,72 @@
    import java.awt.*;
    import java.awt.event.*;
    import java.awt.image.*;
-    public class PinballPanel extends JPanel
+   public class PinballPanel extends JPanel
    {
-      private static final int FRAME = 1000;
+      // Make sure to keep these in sync with main
+      private static final int HEIGHT = 400;
+      private static final int WIDTH  = 600; 
       private static final Color BACKGROUND = new Color(204, 204, 204);
    
       private BufferedImage myImage;
       private Graphics myBuffer;
       private Ball ball;
+      private paddle lp;
+      private paddle rp;
+      private Rectangle rlp;
+      private Rectangle rrp;
       private Timer t;
-       public PinballPanel()
+      
+      public PinballPanel()
       {
-         myImage =  new BufferedImage(FRAME, FRAME, BufferedImage.TYPE_INT_RGB);
+         myImage =  new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
          myBuffer = myImage.getGraphics();
          myBuffer.setColor(BACKGROUND);
-         myBuffer.fillRect(0, 0, FRAME,FRAME);
-         int xPos = (int)(Math.random()*(FRAME-100) + 50);
-         int yPos = (int)(Math.random()*(FRAME-100)+ 50);
-         ball = new Ball(xPos, yPos, 50, Color.BLACK);
-        
+         myBuffer.fillRect(0, 0, WIDTH,HEIGHT);
+         int xPos = (int)(Math.random()*(WIDTH-100) + 50);
+         int yPos = (int)(Math.random()*(HEIGHT-100)+ 50);
+         ball = new Ball(xPos, yPos, 25, Color.RED);
+         lp = new paddle(10,10);
+         rlp = new Rectangle(10,10,lp.getWidth(),lp.getHeight());
+         rp = new paddle(WIDTH-10-lp.getWidth(),HEIGHT-10-lp.getHeight());
+         rrp = new Rectangle(10,10,rp.getWidth(),rp.getHeight());
+         addKeyListener(new keyer());
+         setFocusable(true);
+         request
          t = new Timer(5, new Listener());
          t.start();
       }
-       public void paintComponent(Graphics g)
+      public void paintComponent(Graphics g)
       {
          g.drawImage(myImage, 0, 0, getWidth(), getHeight(), null);
       }
-       private class Listener implements ActionListener
+      private class Listener implements ActionListener
       {
-          public void actionPerformed(ActionEvent e)
+         public void actionPerformed(ActionEvent e)
          {
             myBuffer.setColor(BACKGROUND);    //cover the 
-            // Doing all these conversions will come back to bite me, I just know it...
-            myBuffer.fillRect(0,0,FRAME,FRAME);   //old ball
-            ball.move(FRAME,FRAME);
-            ball.draw(myBuffer);     
+            myBuffer.fillRect(0,0,WIDTH,HEIGHT);   //old ball
+            lp.draw(myBuffer);
+            rp.draw(myBuffer);
+            rlp.setLocation(lp.getX(),lp.getY());
+            rrp.setLocation(rp.getX(),rp.getY());
+            ball.move(WIDTH,HEIGHT,rlp,rrp);
+            ball.draw(myBuffer);
+            
             repaint();
+         }
+      }
+      private class keyer implements KeyListener
+      {
+         private char c;
+         @Override
+         public void keyTyped(KeyEvent e)
+         {
+            c = e.getKeyChar();
+            switch(c)
+            {
+               
+            }
          }
       }
    }
