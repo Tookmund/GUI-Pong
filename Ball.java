@@ -3,9 +3,10 @@ public class Ball extends Polkadot
    {
       private double dx;       // pixels to move each time step() is called.
       private double dy;
-      public double lscore;
-      public double rscore;
+      private double lscore;
+      private double rscore;
       private Rectangle rb;
+      private final static int topscore = 10;
     // constructors
        public Ball()         //default constructor
       {
@@ -41,7 +42,14 @@ public class Ball extends Polkadot
          return dy;
       }
       
-      
+      public double getLscore()
+      {
+         return lscore;
+      }
+      public double getRscore()
+      {
+         return rscore;
+      }
      //instance methods
        public void move(double rightEdge, double bottomEdge, Rectangle rlp, Rectangle rrp)
       {
@@ -84,5 +92,20 @@ public class Ball extends Polkadot
             setY(0+getRadius());
             setdy(dy*-1);
         }
+      }
+      public char checkWinner()
+      {
+         if(lscore >= topscore)
+         {
+            return 'l';
+         }
+         else if (rscore >= topscore)
+         {
+            return 'r';
+         }
+         else
+         {
+            return ' ';
+         }
       }
    }
